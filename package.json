@@ -1,0 +1,37 @@
+{
+  "name": "membersonly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx --watch src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devnchill/MembersOnly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devnchill/MembersOnly/issues"
+  },
+  "homepage": "https://github.com/devnchill/MembersOnly#readme",
+  "description": "A clubhouse where members can write anonymous blogpost",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
+    "@types/pg": "^8.15.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
