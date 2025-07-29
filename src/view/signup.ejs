@@ -1,0 +1,45 @@
+<html>
+  <body>
+    <form method="POST" action="/signup">
+      <div>
+        <label>First Name:</label>
+        <input name="firstName" type="text" placeholder="rahul" required
+               value="<%= formData.firstName || '' %>"/>
+        <% const err1 = errors?.find(e => e.param === 'firstName'); %>
+        <% if (err1) { %><p style="color: red"><%= err1.msg %></p><% } %>
+      </div>
+
+      <div>
+        <label>Last Name:</label>
+        <input name="lastName" type="text" placeholder="kumar"
+               value="<%= formData.lastName || '' %>"/>
+        <% const err2 = errors.find(e => e.param === 'lastName'); %>
+        <% if (err2) { %><p style="color: red"><%= err2.msg %></p><% } %>
+      </div>
+
+      <div>
+        <label>Email:</label>
+        <input name="email" type="email" placeholder="nerd@gmail.com" required
+               value="<%= formData.email || '' %>"/>
+        <% const err3 = errors?.find(e => e.param === 'email'); %>
+        <% if (err3) { %><p style="color: red"><%= err3.msg %></p><% } %>
+      </div>
+
+      <div>
+        <label>Password:</label>
+        <input name="password" type="password" minlength="6" maxlength="20" required/>
+        <% const err4 = errors?.find(e => e.param === 'password'); %>
+        <% if (err4) { %><p style="color: red"><%= err4.msg %></p><% } %>
+      </div>
+
+      <div>
+        <label>Confirm Password:</label>
+        <input name="confirmPassword" type="password" minlength="6" maxlength="20" required/>
+        <% const err5 = errors?.find(e => e.param === 'confirmPassword'); %>
+        <% if (err5) { %><p style="color: red"><%= err5.msg %></p><% } %>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
