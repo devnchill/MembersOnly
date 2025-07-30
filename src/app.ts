@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import { Request, Response, NextFunction } from "express";
 import Db from "./db/init";
 import signUpRouter from "./router/signupRouter";
 import path from "path";
@@ -14,6 +15,14 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/signup", signUpRouter);
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error("Unhandled Error:", err);
+  res.status(500).render("error", {
+    message: "Something went wrong.",
+    stack: "",
+  });
+});
 
 console.log(`${process.env.NODE_ENV} MODE`);
 if (process.env.NODE_ENV !== "production") {

@@ -17,4 +17,10 @@ export default class userModel {
       user.hashedPassword,
     ]);
   }
+
+  static async hasUser(email: string): Promise<boolean> {
+    const SQL = `SELECT email FROM users WHERE email=$1`;
+    const { rowCount } = await pool.query(SQL, [email]);
+    return rowCount! > 0;
+  }
 }

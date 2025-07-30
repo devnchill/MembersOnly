@@ -63,9 +63,18 @@ export default class SignUpController {
       });
     }
 
-    const { firstName, lastName, email, password } = req.body;
-    const hashedPassword = await bcryptjs.hash(password, 10);
     try {
+      const { firstName, lastName, email, password } = req.body;
+      console.log("Email from form:", email);
+      const existingUser = await userModel.hasUser(email);
+      console.log("Has user:", existingUser);
+      if (existingUser) {
+        return res.status(400).render("signup", {
+          formData: req.body,
+          err: { email: "Email already in use." },
+        });
+      }
+      const hashedPassword = await bcryptjs.hash(password, 10);
       await userModel.createUser({
         firstName,
         lastName,

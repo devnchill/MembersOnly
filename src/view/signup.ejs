@@ -1,35 +1,45 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/style.css" />
+    <title>Signup</title>
   </head>
   <body>
-    <form METHOD="POST" action='/signup'>
+    <% const form = typeof formData !== 'undefined' ? formData : {}; %>
+    <% const error = typeof err !== 'undefined' ? err : {}; %>
+
+    <form method="POST" action="/signup">
       <div>
         <label>First Name:</label>
-        <input name='firstName' type='text' placeholder='rahul' minlength='3' required  value="<%= formData.firstName || '' %>"/>
-        <p class='error_p'><%= err.firstName || '' %></p>
+        <input name="firstName" type="text" placeholder="rahul" minlength="3" required value="<%= form.firstName || '' %>" />
+        <p style="color: red;"><%= error.firstName || '' %></p>
       </div>
+
       <div>
         <label>Last Name:</label>
-        <input name='lastName' type='text' placeholder='kumar' minlength='3' value="<%= formData.lastName || '' %>"/>
-        <p class='error_p'><%= err.lastName || '' %></p>
+        <input name="lastName" type="text" placeholder="kumar" minlength="3" required value="<%= form.lastName || '' %>" />
+        <p style="color: red;"><%= error.lastName || '' %></p>
       </div>
+
       <div>
         <label>Email:</label>
-        <input name='email' type='email' placeholder='nerd@gmail.com' required value="<%= formData.email || '' %>"/> 
-        <p class='error_p'><%= err.email || '' %></p>
+        <input name="email" type="email" required value="<%= form.email || '' %>" />
+        <p style="color: red;"><%= error.email || '' %></p>
       </div>
+
       <div>
-        <label> Password:</label>
-        <input name='password' type='password' minlength='2' maxlength='10' required value="<%= formData.password || '' %>"/>
-        <p class='error_p'><%= err.password || '' %></p>
+        <label>Password:</label>
+        <input name="password" type="password" minlength="6" required />
+        <p style="color: red;"><%= error.password || '' %></p>
       </div>
+
       <div>
         <label>Confirm Password:</label>
-        <input name='confirmPassword' type='password' minlength='2' maxlength='10' required value="<%= formData.confirmPassword || '' %>"/>
-        <p class='error_p'><%= err.confirmPassword || '' %></p>
+        <input name="confirmPassword" type="password" minlength="6" required />
+        <p style="color: red;"><%= error.confirmPassword || '' %></p>
       </div>
-      <button type='submit'>Submit</button>
+
+      <button type="submit">Sign up</button>
     </form>
   </body>
 </html>
+
