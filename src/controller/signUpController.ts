@@ -44,7 +44,7 @@ export default class SignUpController {
     try {
       res.render("signup", {
         formData: {},
-        errors: [],
+        err: [],
       });
     } catch (err) {
       next(err);
@@ -53,11 +53,15 @@ export default class SignUpController {
 
   static async signUpPost(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
+      console.log("Validation failed. Sending error page.");
+      const errorMap: Record<string, string> = {};
+      for (const error of errors.array()) {
+        errorMap[error.path] = error.msg;
+      }
       return res.status(400).render("signup", {
-        errors: errors.array(),
         formData: req.body,
+        err: errorMap,
       });
     }
 
