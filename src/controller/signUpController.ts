@@ -25,9 +25,7 @@ export default class SignUpController {
     body("password")
       .trim()
       .isLength({ min: 6, max: 20 })
-      .withMessage("Password must be between 6 to 20 characters.")
-      .isStrongPassword()
-      .withMessage("Password must be strong."),
+      .withMessage("Password must be between 6 to 20 characters."),
 
     body("confirmPassword")
       .trim()
@@ -57,7 +55,7 @@ export default class SignUpController {
       console.log("Validation failed. Sending error page.");
       const errorMap: Record<string, string> = {};
       for (const error of errors.array()) {
-        errorMap[error.path] = error.msg;
+        if (error.type === "field") errorMap[error.path] = error.msg;
       }
       return res.status(400).render("signup", {
         formData: req.body,
