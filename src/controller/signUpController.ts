@@ -75,13 +75,18 @@ export default class SignUpController {
         });
       }
       const hashedPassword = await bcryptjs.hash(password, 10);
-      await userModel.createUser({
+      const user = await userModel.createUser({
         firstName,
         lastName,
         email,
         hashedPassword,
       });
-      res.json("Created user");
+      if (user) {
+        req.login(user, (err) => {
+          if (err) return next(err);
+          return res.redirect("/");
+        });
+      }
     } catch (err) {
       return next(err);
     }

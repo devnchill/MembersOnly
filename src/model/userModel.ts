@@ -13,13 +13,14 @@ export type TNewUser = Omit<TUser, "id" | "created_at">;
 
 export default class userModel {
   static async createUser(user: TNewUser) {
-    const SQL = `INSERT INTO users (first_name,last_name,email,hashed_password) VALUES($1,$2,$3,$4)`;
-    await pool.query(SQL, [
+    const SQL = `INSERT INTO users (first_name,last_name,email,hashed_password) VALUES($1,$2,$3,$4) RETURNING id`;
+    const { rows } = await pool.query(SQL, [
       user.firstName,
       user.lastName,
       user.email,
       user.hashedPassword,
     ]);
+    return rows[0];
   }
 
   static async hasUser(email: string): Promise<boolean> {

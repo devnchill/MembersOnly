@@ -29,13 +29,17 @@ app.use(passport.session());
 
 app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
-
 app.get("/logout", (req, res, next) =>
   req.logout((err) => {
     if (err) return next(err);
     res.redirect("/");
   }),
 );
+app.use("/", (req, res) => {
+  console.log("/ endpoint hit");
+  res.locals.user = req.user;
+  res.render("index");
+});
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error("Unhandled Error:", err);

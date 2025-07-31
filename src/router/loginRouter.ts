@@ -14,8 +14,8 @@ loginRouter.get("/", (_, res, next) => {
 loginRouter.post(
   "/",
   passport.authenticate("local", {
-    failureRedirect: "/failure",
-    successRedirect: "/success",
+    failureRedirect: "/",
+    successRedirect: "/",
   }),
 );
 
