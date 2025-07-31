@@ -83,7 +83,7 @@ export default class SignUpController {
       });
       res.json("Created user");
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 }
