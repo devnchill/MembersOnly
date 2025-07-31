@@ -5,11 +5,13 @@ export default class Db {
     await pool.query(`CREATE TABLE IF NOT EXISTS users
     (
       id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY ,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       first_name VARCHAR(255),
       last_name VARCHAR(255),
       email VARCHAR(255) UNIQUE,
       hashed_password VARCHAR(255),
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      is_admin BOOLEAN NOT NULL,
+      is_member BOOLEAN NOT NULL
     )
     `);
   }

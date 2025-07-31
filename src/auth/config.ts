@@ -1,5 +1,5 @@
 import passport from "passport";
-import pool from "../db/pool";
+import pool from "../model/pool";
 import { Strategy as LocalStrategy } from "passport-local";
 import userModel from "../model/userModel";
 import bcryptjs from "bcryptjs";
@@ -42,8 +42,11 @@ passport.deserializeUser(async (id, done) => {
       id,
     ]);
     const user = rows[0];
-    console.log(user + "found in deserializeUser");
-
+    if (!user) {
+      return done(null, false);
+    }
+    console.log(user, "found in deserializeUser");
+    delete user.hashed_password;
     done(null, user);
   } catch (err) {
     done(err);

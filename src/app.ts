@@ -1,13 +1,16 @@
 import "dotenv/config";
 import express from "express";
 import { Request, Response, NextFunction } from "express";
-import Db from "./db/init";
+import Db from "./model/init";
 import signUpRouter from "./router/signupRouter";
 import path from "path";
 import loginRouter from "./router/loginRouter";
 import passport from "passport";
 import session from "express-session";
 import "./auth/config.ts";
+import logoutRouter from "./router/logoutRouter";
+import indexRouter from "./router/indexRouter";
+import membershipRouter from "./router/membershipRouter";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,17 +32,9 @@ app.use(passport.session());
 
 app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
-app.get("/logout", (req, res, next) =>
-  req.logout((err) => {
-    if (err) return next(err);
-    res.redirect("/");
-  }),
-);
-app.use("/", (req, res) => {
-  console.log("/ endpoint hit");
-  res.locals.user = req.user;
-  res.render("index");
-});
+app.use("/logout", logoutRouter);
+app.use("/membership", membershipRouter);
+app.use("/", indexRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error("Unhandled Error:", err);

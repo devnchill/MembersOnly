@@ -1,12 +1,14 @@
-import pool from "../db/pool";
+import pool from "./pool";
 
 export type TUser = {
   readonly id: number;
+  readonly created_at: Date;
   firstName: string;
   lastName: string;
   email: string;
   hashedPassword: string;
-  readonly created_at: Date;
+  isMember: boolean;
+  isAdmin: boolean;
 };
 
 export type TNewUser = Omit<TUser, "id" | "created_at">;
@@ -40,6 +42,8 @@ export default class userModel {
       email: user.email,
       hashedPassword: user.hashed_password,
       created_at: user.created_at,
+      isAdmin: user.is_admin,
+      isMember: user.is_member,
     };
   }
 }
