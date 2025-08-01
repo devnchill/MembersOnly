@@ -11,6 +11,7 @@ import "./auth/config.ts";
 import logoutRouter from "./router/logoutRouter";
 import indexRouter from "./router/indexRouter";
 import membershipRouter from "./router/membershipRouter";
+import postRouter from "./router/postRouter";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/membership", membershipRouter);
+app.use("/post", postRouter);
 app.use("/", indexRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

@@ -1,12 +1,12 @@
 <html>
   <body>
-    <% if (locals.user) { %>
-      Welcome Back
-      <% if (!user.is_member) { %>
-        <p><a href='/membership'> become a member </a></p>
+    <% if (currentUser) { %>
+      <% if (!currentUser.is_member) { %>
+        <p><a href='/membership'>Become a member</a></p>
       <% } else { %>
-        <p>You are already a member </p>
+        <p>You are already a member</p>
       <% } %>
+      <%- include('homepage') %>
     <% } else { %>
       <%- include('signup') %>
     <% } %>

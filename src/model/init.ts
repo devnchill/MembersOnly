@@ -20,9 +20,9 @@ export default class Db {
     await pool.query(`CREATE TABLE IF NOT EXISTS posts 
     (
       id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       title VARCHAR(255),
       content text,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       user_id BIGINT REFERENCES users(id) ON DELETE CASCADE
     )
     `);
@@ -32,10 +32,10 @@ export default class Db {
     await pool.query(`CREATE TABLE IF NOT EXISTS comments 
     (
       id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       comment TEXT,
       user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-      post_id BIGINT REFERENCES posts(id) ON DELETE CASCADE,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      post_id BIGINT REFERENCES posts(id) ON DELETE CASCADE
     )
     `);
   }
