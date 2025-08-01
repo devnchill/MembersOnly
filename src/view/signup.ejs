@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html style='height:100%'>
   <head>
     <title>Signup</title>
   </head>
-  <body>
+  <body style='height:100%;display:flex;align-items:center;justify-content:center;background-color:black;color:white;'>
     <% const form = typeof formData !== 'undefined' ? formData : {}; %>
     <% const error = typeof err !== 'undefined' ? err : {}; %>
 
-    <form method="POST" action="/signup">
-      <div>
+    <form method="POST" action="/signup" style='padding:3rem;border:2px solid white; border-radius:1rem;'>
+      <div style='display:grid;'>
         <label>First Name:</label>
         <input name="firstName" type="text" placeholder="rahul" minlength="3" required value="<%= form.firstName || '' %>" />
         <p style="color: red;"><%= error.firstName || '' %></p>
       </div>
 
-      <div>
+      <div style='display:grid;'>
         <label>Last Name:</label>
         <input name="lastName" type="text" placeholder="kumar" minlength="3" required value="<%= form.lastName || '' %>" />
         <p style="color: red;"><%= error.lastName || '' %></p>
       </div>
 
-      <div>
+      <div style='display:grid;'>
         <label>Email:</label>
-        <input name="email" type="email" required value="<%= form.email || '' %>" />
+        <input placeholder='test@gmail.com' name="email" type="email" required value="<%= form.email || '' %>" />
         <p style="color: red;"><%= error.email || '' %></p>
       </div>
 
-      <div>
+      <div style='display:grid;'>
         <label>Password:</label>
         <input name="password" type="password" minlength="6" required />
         <p style="color: red;"><%= error.password || '' %></p>
       </div>
 
-      <div>
+      <div style='display:grid;'>
         <label>Confirm Password:</label>
         <input name="confirmPassword" type="password" minlength="6" required />
         <p style="color: red;"><%= error.confirmPassword || '' %></p>
