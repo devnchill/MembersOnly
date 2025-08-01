@@ -7,5 +7,8 @@
     <input required id="password" name="password" type="password" />
     <button type="submit">Log In</button>
   </form>
+  <% if (message) { %>
+    <p style="color: red;"><%= message %></p>
+  <% } %>
 </body>
 </html>

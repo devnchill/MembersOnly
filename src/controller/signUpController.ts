@@ -86,6 +86,8 @@ export default class SignUpController {
           if (err) return next(err);
           return res.redirect("/");
         });
+      } else {
+        throw "user not created";
       }
     } catch (err) {
       return next(err);

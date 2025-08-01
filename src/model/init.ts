@@ -10,8 +10,8 @@ export default class Db {
       last_name VARCHAR(255),
       email VARCHAR(255) UNIQUE,
       hashed_password VARCHAR(255),
-      is_admin BOOLEAN NOT NULL,
-      is_member BOOLEAN NOT NULL
+      is_admin BOOLEAN NOT NULL DEFAULT FALSE, 
+      is_member BOOLEAN NOT NULL DEFAULT FALSE
     )
     `);
   }

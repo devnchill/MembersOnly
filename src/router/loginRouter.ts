@@ -1,21 +1,17 @@
 import { Router } from "express";
 import passport from "passport";
+import loginController from "../controller/loginController";
 
 const loginRouter = Router();
 
-loginRouter.get("/", (_, res, next) => {
-  try {
-    res.render("login");
-  } catch (err) {
-    return next(err);
-  }
-});
+loginRouter.get("/", loginController.loginGet);
 
 loginRouter.post(
   "/",
   passport.authenticate("local", {
-    failureRedirect: "/",
+    failureRedirect: "/login",
     successRedirect: "/",
+    failureMessage: "invalid username or password",
   }),
 );
 

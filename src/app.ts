@@ -30,6 +30,11 @@ app.use(
 );
 app.use(passport.session());
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);

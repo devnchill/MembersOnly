@@ -1,9 +1,14 @@
 <html>
   <body>
-    <% if (user) { %>
+    <% if (locals.user) { %>
       Welcome Back
+      <% if (!user.is_member) { %>
+        <p><a href='/membership'> become a member </a></p>
+      <% } else { %>
+        <p>You are already a member </p>
+      <% } %>
     <% } else { %>
-      <%- include('signup') %> 
+      <%- include('signup') %>
     <% } %>
   </body>
 </html>

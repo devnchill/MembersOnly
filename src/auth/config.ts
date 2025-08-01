@@ -11,10 +11,16 @@ passport.use(
       passwordField: "password",
     },
     async (email, password, done) => {
+      console.log(email, "email");
+      console.log(password, "password");
+
       try {
         const user = await userModel.findUser(email);
-        console.log(user);
-        console.log(user.hashedPassword);
+        if (!user) {
+          return done(null, false, { message: "Incorrect username" });
+        }
+        console.log("user", user);
+        console.log("hashedpassword", user.hashedPassword);
 
         if (!user) {
           console.log("user not found inside new LocalStrategy");
