@@ -3,7 +3,7 @@ import PostModel from "../model/postModel";
 
 export default class PostController {
   static createPostGet(req: Request, res: Response) {
-    res.render("createPost");
+    res.render("partial/createPost");
   }
 
   static async createPostPost(req: Request, res: Response, next: NextFunction) {

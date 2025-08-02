@@ -1,6 +1,11 @@
 <html>
   <body>
   <a href='/post/new'>CreatePost</a>
+  <% posts.forEach((post)=>{ %>
+    <p><%=post.title %></p>
+    <p><%=post.content %></p>
+    <p><%=post.firstName %></p>
+  <% }) %>
   </body>
 </html>
 

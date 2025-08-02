@@ -7,7 +7,7 @@ export default function ensureLoggedIn(
   if (req.isAuthenticated?.() && req.user) {
     return next();
   }
-  return res.status(401).render("loginFirst", {
+  return res.status(401).render("login", {
     message: "You need to be logged in to do that.",
   });
 }

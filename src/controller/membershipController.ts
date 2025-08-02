@@ -3,7 +3,7 @@ import userModel from "../model/userModel";
 
 export default class MemberShip {
   static async elevateGet(req: Request, res: Response, next: NextFunction) {
-    res.render("membership");
+    res.render("partial/membership");
   }
 
   static async elevatePost(req: Request, res: Response, next: NextFunction) {
@@ -18,7 +18,7 @@ export default class MemberShip {
         const { id } = req.user as { id: number };
         const isMember = true;
         await userModel.updateMembershipStatus(id, isMember);
-        res.json("Congo you are a user now");
+        res.redirect("/");
       } else {
         return res.send("Nice try... but smart people can't be members ");
       }

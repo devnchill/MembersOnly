@@ -2,7 +2,7 @@ import pool from "./pool";
 
 export type TUser = {
   readonly id: number;
-  readonly created_at: Date;
+  readonly createdAt: Date;
   firstName: string;
   lastName: string;
   email: string;
@@ -48,7 +48,7 @@ export default class userModel {
       lastName: user.last_name,
       email: user.email,
       hashedPassword: user.hashed_password,
-      created_at: user.created_at,
+      createdAt: user.created_at,
       isAdmin: user.is_admin,
       isMember: user.is_member,
     };

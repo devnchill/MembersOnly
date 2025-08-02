@@ -21,11 +21,6 @@ passport.use(
         }
         console.log("user", user);
         console.log("hashedpassword", user.hashedPassword);
-
-        if (!user) {
-          console.log("user not found inside new LocalStrategy");
-          return done(null, false, { message: "Incorrect username" });
-        }
         const match = await bcryptjs.compare(password, user.hashedPassword);
         if (!match) {
           return done(null, false, { message: "Incorrect password" });

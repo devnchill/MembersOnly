@@ -45,7 +45,7 @@ app.use("/", indexRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error("Unhandled Error:", err);
-  res.status(500).render("error", {
+  res.status(500).render("partial/error", {
     message: "Something went wrong.",
     stack: "",
   });

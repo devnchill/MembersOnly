@@ -10,6 +10,10 @@ type TPost = {
 
 type TNewPost = Omit<TPost, "id" | "createdAt">;
 
+type TPostWithAuthor = TPost & {
+  firstName: string;
+};
+
 export default class PostModel {
   static async createPost(post: TNewPost): Promise<TPost> {
     const SQL = `
@@ -46,5 +50,27 @@ export default class PostModel {
       content: post.content,
       createdAt: post.created_at,
     };
+  }
+
+  static async getAllPosts(): Promise<TPostWithAuthor[]> {
+    const { rows } = await pool.query(`
+      SELECT 
+        posts.id,
+        posts.user_id,
+        posts.created_at, 
+        posts.title, 
+        posts.content,
+        users.first_name
+      FROM posts
+      JOIN users ON posts.user_id = users.id
+  `);
+    return rows.map((row) => ({
+      id: row.id,
+      createdAt: row.created_at,
+      userId: row.user_id,
+      title: row.title,
+      content: row.content,
+      firstName: row.first_name,
+    }));
   }
 }
