@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-
 export default class loginController {
   static loginGet = (req: Request, res: Response, next: NextFunction) => {
     try {

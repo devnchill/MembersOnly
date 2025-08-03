@@ -1,11 +1,33 @@
 <html>
   <body>
-  <a href='/post/new'>CreatePost</a>
-  <% posts.forEach((post)=>{ %>
-    <p><%=post.title %></p>
-    <p><%=post.content %></p>
-    <p><%=post.firstName %></p>
-  <% }) %>
+    <a href='/new'>CreatePost</a>
+    <% posts.forEach((post) => { %>
+      <p><%= post.title %></p>
+      <p><%= post.content %></p>
+      <p><%= currentUser && currentUser.is_member ? post.firstName : "anonymous" %></p>
+      <% if (currentUser && currentUser.is_admin) { %>
+        <button onClick="deletePost('<%= post.id %>')">Delete</button>
+      <% } %>
+    <% }) %>
+
+    <script>
+      async function deletePost(id) {
+        try {
+          const res = await fetch(`/posts/${id}`, {
+            method: 'DELETE'
+          });
+          if (res.ok) {
+            alert('Post deleted');
+            location.reload();
+          } else {
+            alert('Failed to delete post');
+          }
+        } catch (err) {
+          alert('Error deleting post');
+          console.error(err);
+        }
+      }
+    </script>
   </body>
 </html>
 

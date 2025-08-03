@@ -11,10 +11,7 @@ export type TUser = {
   isAdmin: boolean;
 };
 
-export type TNewUser = Omit<
-  TUser,
-  "id" | "created_at" | "isMember" | "isAdmin"
->;
+export type TNewUser = Omit<TUser, "id" | "createdAt" | "isMember" | "isAdmin">;
 
 export default class userModel {
   static async createUser(user: TNewUser) {

@@ -3,8 +3,6 @@
     <% if (currentUser) { %>
       <% if (!currentUser.is_member) { %>
         <p><a href='/membership'>Become a member</a></p>
-      <% } else { %>
-        <p>You are already a member</p>
       <% } %>
       <%- include('homepage') %>
     <% } else { %>

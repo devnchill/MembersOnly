@@ -40,14 +40,22 @@ app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/membership", membershipRouter);
-app.use("/post", postRouter);
+app.use("/posts", postRouter);
 app.use("/", indexRouter);
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error("Unhandled Error:", err);
+app.use((_: Request, res: Response, _next: NextFunction) => {
+  res.status(404).render("partial/error", {
+    message: "Page not found",
+    stack: "",
+  });
+});
+
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  const error = err instanceof Error ? err : new Error(String(err));
+  console.error("Unhandled Error:", error);
   res.status(500).render("partial/error", {
     message: "Something went wrong.",
-    stack: "",
+    stack: process.env.NODE_ENV === "production" ? "" : error.stack,
   });
 });
 

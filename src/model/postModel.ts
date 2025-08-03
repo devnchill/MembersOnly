@@ -73,4 +73,10 @@ export default class PostModel {
       firstName: row.first_name,
     }));
   }
+
+  static async deletePost(id: number) {
+    const SQL = `DELETE FROM posts WHERE id = $1`;
+    const result = await pool.query(SQL, [id]);
+    return result.rowCount;
+  }
 }
