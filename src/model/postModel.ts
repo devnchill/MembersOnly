@@ -56,22 +56,15 @@ export default class PostModel {
     const { rows } = await pool.query(`
       SELECT 
         posts.id,
-        posts.user_id,
-        posts.created_at, 
+        posts.created_at  AS "createdAt",
+        posts.user_id AS "userId",
+        users.first_name AS "firstName",
         posts.title, 
-        posts.content,
-        users.first_name
+        posts.content 
       FROM posts
       JOIN users ON posts.user_id = users.id
   `);
-    return rows.map((row) => ({
-      id: row.id,
-      createdAt: row.created_at,
-      userId: row.user_id,
-      title: row.title,
-      content: row.content,
-      firstName: row.first_name,
-    }));
+    return rows;
   }
 
   static async deletePost(id: number) {

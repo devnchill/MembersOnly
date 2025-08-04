@@ -1,6 +1,6 @@
 <html>
   <body>
-    <a href='/new'>CreatePost</a>
+    <a href='/posts/new'>CreatePost</a>
     <% posts.forEach((post) => { %>
       <p><%= post.title %></p>
       <p><%= post.content %></p>
@@ -8,6 +8,8 @@
       <% if (currentUser && currentUser.is_admin) { %>
         <button onClick="deletePost('<%= post.id %>')">Delete</button>
       <% } %>
+      <button><a href="/comments/<%=post.id%>">View Comments</a></button>
+      <button><a href="/comments/<%=post.id%>/new">Add Comments</a></button>
     <% }) %>
 
     <script>
