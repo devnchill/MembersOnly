@@ -4,12 +4,20 @@
     <% posts.forEach((post) => { %>
       <p><%= post.title %></p>
       <p><%= post.content %></p>
-      <p><%= currentUser && currentUser.is_member ? post.firstName : "anonymous" %></p>
+      <p>Author: <%= currentUser && currentUser.is_member ? post.firstName : "Anonymous" %></p>
       <% if (currentUser && currentUser.is_admin) { %>
         <button onClick="deletePost('<%= post.id %>')">Delete</button>
       <% } %>
-      <button><a href="/comments/<%=post.id%>">View Comments</a></button>
-      <button><a href="/comments/<%=post.id%>/new">Add Comments</a></button>
+      <a href="/comments/<%= post.id %>">
+        <button>View Comments</button>
+      </a>
+      <a href="/comments/<%= post.id %>/new">
+        <button>Add Comments</button>
+      </a>
+      <p><%=post.likeCount%></p>
+      <form method="POST" action="/like/<%=post.id%>" >
+        <button type='submit'>LIke</button>
+      </form>
     <% }) %>
 
     <script>

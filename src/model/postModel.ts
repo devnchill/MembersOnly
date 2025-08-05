@@ -10,8 +10,9 @@ type TPost = {
 
 type TNewPost = Omit<TPost, "id" | "createdAt">;
 
-type TPostWithAuthor = TPost & {
+type TPostWithAuthorAndLikes = TPost & {
   firstName: string;
+  likeCount: number;
 };
 
 export default class PostModel {
@@ -52,7 +53,7 @@ export default class PostModel {
     };
   }
 
-  static async getAllPosts(): Promise<TPostWithAuthor[]> {
+  static async getAllPosts(): Promise<TPostWithAuthorAndLikes[]> {
     const { rows } = await pool.query(`
       SELECT 
         posts.id,
@@ -60,9 +61,19 @@ export default class PostModel {
         posts.user_id AS "userId",
         users.first_name AS "firstName",
         posts.title, 
-        posts.content 
+        posts.content,
+        COUNT(likes.id) AS "likeCount"
       FROM posts
       JOIN users ON posts.user_id = users.id
+      LEFT JOIN LIKES ON posts.id = likes.post_id 
+      GROUP BY 
+        posts.id,
+        posts.created_at,
+        posts.user_id,
+        users.first_name,
+        posts.title, 
+        posts.content
+      ORDER BY posts.created_at DESC
   `);
     return rows;
   }
@@ -71,5 +82,14 @@ export default class PostModel {
     const SQL = `DELETE FROM posts WHERE id = $1`;
     const result = await pool.query(SQL, [id]);
     return result.rowCount;
+  }
+
+  static async likePost(userId: number, postId: number) {
+    const SQL = `
+    INSERT INTO likes (user_id, post_id)
+    VALUES ($1, $2)
+    ON CONFLICT (user_id, post_id) DO NOTHING
+  `;
+    await pool.query(SQL, [userId, postId]);
   }
 }
