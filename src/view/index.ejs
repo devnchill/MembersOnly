@@ -1,13 +1,15 @@
-<html>
-  <body>
-    <% if (currentUser) { %>
-      <% if (!currentUser.is_member) { %>
-        <p><a href='/membership'>Become a member</a></p>
+<html style="height:100%;">
+  <body style="height:100%; display:flex; align-items:center; justify-content:center; background-color:black; color:white; font-family:sans-serif;">
+    <div style="text-align:center;">
+      <% if (currentUser) { %>
+        <% if (!currentUser.is_member) { %>
+          <p><a href='/membership' style="color:cyan; text-decoration:none;">Become a member</a></p>
+        <% } %>
+        <%- include('homepage') %>
+      <% } else { %>
+        <%- include('signup') %>
       <% } %>
-      <%- include('homepage') %>
-    <% } else { %>
-      <%- include('signup') %>
-    <% } %>
+    </div>
   </body>
 </html>
 

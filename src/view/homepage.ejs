@@ -1,24 +1,36 @@
-<html>
-  <body>
-    <a href='/posts/new'>CreatePost</a>
-    <% posts.forEach((post) => { %>
-      <p><%= post.title %></p>
-      <p><%= post.content %></p>
-      <p>Author: <%= currentUser && currentUser.is_member ? post.firstName : "Anonymous" %></p>
-      <% if (currentUser && currentUser.is_admin) { %>
-        <button onClick="deletePost('<%= post.id %>')">Delete</button>
-      <% } %>
-      <a href="/comments/<%= post.id %>">
-        <button>View Comments</button>
-      </a>
-      <a href="/comments/<%= post.id %>/new">
-        <button>Add Comments</button>
-      </a>
-      <p><%=post.likeCount%></p>
-      <form method="POST" action="/like/<%=post.id%>" >
-        <button type='submit'>LIke</button>
-      </form>
-    <% }) %>
+<html style="height:100%;">
+  <body style="background-color:black; color:white; font-family:sans-serif; padding:2rem;">
+    <div style="max-width:800px; margin:0 auto; display:grid; gap:2rem;">
+      <a href='/posts/new' style="color:cyan; text-decoration:none; font-size:1.1rem;">➕ Create Post</a>
+
+      <% posts.forEach((post) => { %>
+        <div style="border:1px solid white; border-radius:1rem; padding:1.5rem; background-color:#111; display:grid; gap:0.5rem;">
+          <p style="font-size:1.4rem; font-weight:bold;"><%= post.title %></p>
+          <p><%= post.content %></p>
+          <p style="color:gray;">Author: <%= currentUser && currentUser.is_member ? post.firstName : "Anonymous" %></p>
+
+          <% if (currentUser && currentUser.is_admin) { %>
+            <button style="padding:0.5rem; background:red; color:white; border:none; border-radius:0.5rem; cursor:pointer;" onClick="deletePost('<%= post.id %>')">Delete</button>
+          <% } %>
+
+          <div style="display:flex; gap:1rem; margin-top:0.5rem;">
+            <a href="/comments/<%= post.id %>">
+              <button style="padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer;">💬 View Comments</button>
+            </a>
+            <a href="/comments/<%= post.id %>/new">
+              <button style="padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer;">➕ Add Comment</button>
+            </a>
+          </div>
+
+          <div style="margin-top:0.5rem;">
+            <p>❤️ <%=post.likeCount%></p>
+            <form method="POST" action="/like/<%=post.id%>">
+              <button type='submit' style="padding:0.4rem 0.8rem; background-color:#222; color:white; border:1px solid white; border-radius:0.5rem; cursor:pointer;">Like</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
 
     <script>
       async function deletePost(id) {
