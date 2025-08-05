@@ -28,7 +28,10 @@ export default class CommentController {
     try {
       console.log("postId from params:", req.params.postId);
       const postId = parseInt(req.params.postId);
-      const userId = parseInt(req.user.id);
+      if (!req.user) {
+        return next(new Error("user not found"));
+      }
+      const userId = req.user.id;
       const { comment } = req.body;
       const c = {
         postId,

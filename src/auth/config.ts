@@ -3,6 +3,7 @@ import pool from "../model/pool";
 import { Strategy as LocalStrategy } from "passport-local";
 import userModel from "../model/userModel";
 import bcryptjs from "bcryptjs";
+import type { TUser } from "../model/userModel";
 
 passport.use(
   new LocalStrategy(
