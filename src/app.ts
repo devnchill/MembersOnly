@@ -7,7 +7,7 @@ import path from "path";
 import loginRouter from "./router/loginRouter";
 import passport from "passport";
 import session from "express-session";
-import "./auth/config.ts";
+import "./auth/config";
 import logoutRouter from "./router/logoutRouter";
 import indexRouter from "./router/indexRouter";
 import membershipRouter from "./router/membershipRouter";
@@ -64,11 +64,15 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 console.log(`${process.env.NODE_ENV} MODE`);
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, async () => {
+(async () => {
+  try {
+    console.log(`${process.env.NODE_ENV} MODE`);
     await Db.initDb();
-    console.log(`Server listening on PORT: ${PORT}`);
-  });
-} else {
-  app.listen(PORT, () => console.log(`Server Running on PORT:${PORT}`));
-}
+    app.listen(PORT, () => {
+      console.log(`Server Running on PORT: ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Startup failed:", err);
+    process.exit(1);
+  }
+})();
