@@ -1,9 +1,10 @@
-<html>
-  <body>
-    <form method="POST" action="/comments/<%=postId%>">
-      <label >Add Comment </label>
-      <input name="comment" type='textarea' />
-      <button type='submit'>Comment</button>
+<html style="height:100%;">
+  <body style="height:100%; display:flex; align-items:center; justify-content:center; background-color:black; color:white; font-family:sans-serif;">
+    <form method="POST" action="/comments/<%= postId %>" style="padding:2rem; border:2px solid white; border-radius:1rem; display:grid; gap:1rem; width:300px;">
+      <label for="comment">Add Comment</label>
+      <textarea name="comment" id="comment" required style="resize:vertical; min-height:100px; padding:0.5rem; border-radius:0.5rem; border:1px solid #ccc;"></textarea>
+      <button type='submit' style="padding:0.5rem; background-color:#222; color:white; border:1px solid white; border-radius:0.5rem; cursor:pointer;">Comment</button>
     </form>
   </body>
-<html>
+</html>
+

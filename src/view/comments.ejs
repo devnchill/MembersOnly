@@ -1,9 +1,14 @@
-<html>
-  <body>
-    <% comments.forEach((c)=>{%>
-      <p> <%=c.comment %> </p>
-      <p> <%=c.createdAt %> </p>
-      <p> <%=c.firstName %> </p>
-    <% }) %>
+<html style="height:100%;">
+  <body style="background-color:black; color:white; font-family:sans-serif; padding:2rem;">
+    <div style="max-width:800px; margin:0 auto; display:grid; gap:2rem;">
+      <% comments.forEach((c) => { %>
+        <div style="border:1px solid white; border-radius:1rem; padding:1rem; background-color:#111;">
+          <p style="font-size:1.1rem;"><strong>Comment:</strong> <%= c.comment %></p>
+          <p style="color:gray;"><strong>Posted on:</strong> <%= c.createdAt %></p>
+          <p style="color:gray;"><strong>Author:</strong> <%= c.firstName %></p>
+        </div>
+      <% }) %>
+    </div>
   </body>
 </html>
+
