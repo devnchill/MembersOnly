@@ -1,23 +1,26 @@
 <html style="height:100%;">
-  <% if (currentUser && currentUser.is_member) { %>
-    <!-- Homepage layout (no flex centering) -->
-    <body style="background-color:black; color:white; font-family:sans-serif;">
+  <body style="background-color:black; color:white; font-family:sans-serif; <%= !currentUser ? 'display:flex; align-items:center; justify-content:center;' : '' %>">
+    <% if (currentUser) { %>
+      <!-- Logged in (member or not) -->
       <div style="padding:1rem; display:flex; justify-content:space-between; align-items:center; max-width:800px; margin:0 auto;">
-        <p>Welcome, <%= currentUser.first_name %></p>
+        <p>Welcome, <%= currentUser.first_name  %></p>
         <a href="/logout" style="color:cyan; text-decoration:none; font-weight:bold;">Logout</a>
       </div>
-      <%- include('homepage') %>
-    </body>
-  <% } else { %>
-    <!-- Centered layout for login/signup -->
-    <body style="height:100%; display:flex; align-items:center; justify-content:center; background-color:black; color:white; font-family:sans-serif;">
-      <div style="text-align:center;">
-        <% if (currentUser && !currentUser.is_member) { %>
+
+      <% if (!currentUser.is_member) { %>
+        <div style="text-align:center; margin-bottom: 1rem;">
           <p><a href='/membership' style="color:cyan; text-decoration:none;">Become a member</a></p>
-        <% } %>
+        </div>
+      <% } %>
+
+      <%- include('homepage') %>
+
+    <% } else { %>
+      <!-- Not logged in -->
+      <div style="text-align:center;">
         <%- include('signup') %>
       </div>
-    </body>
-  <% } %>
+    <% } %>
+  </body>
 </html>
 
